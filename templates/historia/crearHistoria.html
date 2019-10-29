@@ -1,0 +1,63 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+<title>Agregar Mascotas</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="single-post row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Mascota en adopción</h4>
+                <p class="card-category">Complete todos los datos por favor</p>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'historia:crearhistorias' %}" method="POST">
+                    {% csrf_token %}
+                    <h4 class="card-title">Características principales</h4>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Título</label>
+                                <input class="form-control" type="text" name="titulo">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Fecha</label>
+                                <input class="form-control" type="date" name="fecha" min="2018-12-12" max="2019-12-12">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                         <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Subir imagen </label>
+                                <input class="form-control" type="file" name="imagen" >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Mis memorias</label>
+                                <div class="form-group">
+                                    <label class="bmd-label-floating"> Escribe tu historia.</label>
+                                    <textarea name="historias" class="form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">Agregar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

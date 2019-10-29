@@ -1,0 +1,82 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+<title>Mi perfil</title>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="single-post row">
+
+    <div class="col-lg-3  col-md-3">
+        <ul class="popular-post-list">
+            <h5>Comportamiento</h5>
+            <li>Jugueton %{{ adoptivo_data.nombres }}
+                <div class="skill" data-width="{{ mascotas.jugueton }}"></div>
+            </li>
+            <li>Educado %{{ adoptivo_data.apellidos }}
+                <div class="skill" data-width="{{ mascotas.educado }}"></div>
+            </li>
+            <li>Tranquilo %{{ adoptivo_data.ci_adop }}
+                <div class="skill" data-width="{{ mascotas.tranquilo }}"></div>
+            </li>
+            <h5>Sociable con</h5>
+            <li><p><strong class="fa fa-blind fa-2x"></strong> Adultos : {{ adoptivo_data.direccion }}</p></li>
+            <li><p><strong class="fa fa-child fa-2x"></strong> Niños : {{ adoptivo_data.email }}</p></li>
+            <li><p><strong class="fa fa-paw fa-2x"></strong> Otros animales : {{ adoptivo_data.telefono }}</p></li>
+            <a href="{% url 'mascota:show' id_mascota=mascotas.id_mascota %}" class="btn btn-primary">Adopta un amigo</a>
+            <a href="{% url 'mascota:delete' id_mascota=mascotas.id_mascota %}" class="btn btn-primary">Eliminar</a>
+            <a href="{% url 'mascota:edit' id_mascota=mascotas.id_mascota %}" class="btn btn-primary">Editar</a>
+        </ul>
+    </div>
+    <div class="col-lg-9 col-md-9">
+        <div class="feature-img">
+            <img class="img-fluid" src="{%static 'img/blog/feature-img1.jpg'%}" alt="">
+        </div>
+        <a class="posts-title" href="blog-single.html"><h3>{{ adoptivo_data.edad }}</h3></a>
+        <p class="excert">
+            {{ mascotas.descripcion }}
+        </p>
+        <div class="meta-details">
+            <h5>Características</h5>
+            <ul class="tags">
+                <li><p>Sexo
+                    {% if mascotas.sexo == 'Masculino'%}
+                        <strong class="fa fa-mars fa-2x" style="color:blue;"></strong>
+                        <strong class="fa fa-venus fa-2x"></strong>
+                    {%else%}
+                        <strong class="fa fa-mars fa-2x"></strong>
+                        <strong class="fa fa-venus fa-2x" style="color:blue;"></strong>
+                    {%endif%}
+                    </p>
+                </li>
+                <li><p>Tamaño
+                    {% if mascotas.tamanio == 'Grande' %}
+                        <strong class="fa fa-github"></strong>
+                        <strong class="fa fa-github fa-2x"></strong>
+                        <strong class="fa fa-github fa-3x" style="color:blue;"></strong>
+                    {%endif%}
+                    {% if mascotas.tamanio == 'Mediano' %}
+                        <strong class="fa fa-github"></strong>
+                        <strong class="fa fa-github fa-2x" style="color:blue;"></strong>
+                        <strong class="fa fa-github fa-3x"></strong>
+                    {%endif%}
+                    {% if mascotas.tamanio == 'Pequeño' %}
+                        <strong class="fa fa-github" style="color:blue;"></strong>
+                        <strong class="fa fa-github fa-2x"></strong>
+                        <strong class="fa fa-github fa-3x"></strong>
+                    {%endif%}
+                    </p>
+                </li>
+                <li><p>|       Raza :   <strobg>{{ mascotas.raza }}</strobg>  |</p></li>
+                <li><p>|       años :   <strong>{{ mascotas.edad }}</strong>  |</p></li>
+                <li><p>|       vacunas :   <strong>{{ mascotas.vacuna }}</strong>  |</p></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<hr>
+
+{% endblock %}

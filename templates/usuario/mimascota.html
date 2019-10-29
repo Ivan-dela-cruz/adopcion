@@ -1,0 +1,124 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+<title>Mi Mascotas</title>
+{% endblock %}
+
+{% block content %}
+
+
+{% for mascotas in lis_mas %}
+
+<div class="single-post row">
+
+    <div class="col-lg-3  col-md-3">
+        <ul class="popular-post-list">
+            <h5>Comportamiento</h5>
+            <li>Jugueton %{{ mascotas.id_mascota.jugueton }}
+                <div class="skill" data-width="{{ mascotas.id_mascota.jugueton }}"></div>
+            </li>
+            <li>Educado %{{ mascotas.id_mascota.educado }}
+                <div class="skill" data-width="{{ mascotas.id_mascota.educado }}"></div>
+            </li>
+            <li>Tranquilo %{{ mascotas.id_mascota.tranquilo }}
+                <div class="skill" data-width="{{ mascotas.id_mascota.tranquilo }}"></div>
+            </li>
+            <li>Cariñoso %{{ mascotas.id_mascota.carinioso }}
+                <div class="skill" data-width="{{ mascotas.id_mascota.carinioso }}"></div>
+            </li>
+            <h5>Sociable con</h5>
+            <li><p><strong class="fa fa-blind fa-2x"></strong> Adultos : {{ mascotas.id_mascota.adultos }}</p></li>
+            <li><p><strong class="fa fa-child fa-2x"></strong> Niños : {{ mascotas.id_mascota.ninios }}</p></li>
+            <li><p><strong class="fa fa-paw fa-2x"></strong> Otros animales : {{ mascotas.id_mascota.otros }}</p></li>
+            <h5>Salud</h5>
+            <li><p>Vacunas : <strong>{{ mascotas.id_mascota.vacuna }}</strong></p></li>
+            <li><p>Alergias : <strong>{{ mascotas.id_mascota.alergia }}</strong></p></li>
+            <li><p>Enfermedades <strong>{{ mascotas.id_mascota.enfermeda }}</strong></p></li>
+            <li><p>Tratamiento : <strong>{{ mascotas.id_mascota.tratamiento }}</strong></p></li>
+            <a href="{% url 'historia:addHistorias' %}" class="btn btn-primary">Agregar historia</a>
+        </ul>
+    </div>
+    <div class="col-lg-9 col-md-9">
+        <div class="feature-img">
+            <img class="img-fluid" src="{{ mascotas.id_mascota.foto.url }}" alt="">
+        </div>
+        <a class="posts-title" href="blog-single.html">
+            <h3>{{ mascotas.id_mascota.nombre }}</h3></a>
+        <p class="excert">
+            {{ mascotas.id_mascota.descripcion }}
+        </p>
+        <div class="meta-details">
+            <h5>Características</h5>
+            <ul class="tags">
+                <li><p>Sexo
+                    {% if mascotas.id_mascota.sexo == 'Masculino'%}
+                    <strong class="fa fa-mars fa-2x" style="color:blue;"></strong>
+                    <strong class="fa fa-venus fa-2x"></strong>
+                    {%else%}
+                    <strong class="fa fa-mars fa-2x"></strong>
+                    <strong class="fa fa-venus fa-2x" style="color:blue;"></strong>
+                    {%endif%}
+                </p>
+                </li>
+                <li><p>Tamaño
+                    {% if mascotas.id_mascota.tamanio == 'Grande' %}
+                    <strong class="fa fa-github"></strong>
+                    <strong class="fa fa-github fa-2x"></strong>
+                    <strong class="fa fa-github fa-3x" style="color:blue;"></strong>
+                    {%endif%}
+                    {% if mascotas.id_mascota.tamanio == 'Mediano' %}
+                    <strong class="fa fa-github"></strong>
+                    <strong class="fa fa-github fa-2x" style="color:blue;"></strong>
+                    <strong class="fa fa-github fa-3x"></strong>
+                    {%endif%}
+                    {% if mascotas.id_mascota.tamanio == 'Pequeño' %}
+                    <strong class="fa fa-github" style="color:blue;"></strong>
+                    <strong class="fa fa-github fa-2x"></strong>
+                    <strong class="fa fa-github fa-3x"></strong>
+                    {%endif%}
+                </p>
+                </li>
+                <li>
+                    <p>| Raza :
+                        <strobg>{{ mascotas.id_mascota.raza }}</strobg>
+                        |
+                    </p>
+                </li>
+                <li><p>| años : <strong>{{ mascotas.id_mascota.edad }}</strong> |</p></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+<hr>
+<div class="col-lg-12 posts-list">
+    {% for historia in historia_data %}
+    <div class="single-post row">
+        <div class="col-lg-3  col-md-3 meta-details">
+            <div class="user-details row">
+                <p class="user-name col-lg-12 col-md-12 col-6"><a href="#">{{ historia.like }} Lecturas</a> <span
+                        class="lnr lnr-user"></span></p>
+                <p class="date col-lg-12 col-md-12 col-6"><a href="#">{{ historia.fecha }}</a> <span
+                        class="lnr lnr-calendar-full"></span></p>
+                <p class="view col-lg-12 col-md-12 col-6"><a href="#">{{ historia.like }} Me gusta</a> <span
+                        class="lnr lnr-eye"></span></p>
+
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9 ">
+            <div class="feature-img">
+                <img class="img-fluid" src="{{ historia.imagen.url }}" alt="">
+            </div>
+            <a class="posts-title" href="blog-single.html"><h3>{{ historia.titulo }}</h3>
+            </a>
+            <p class="excert">
+                {{ historia.historias }}
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

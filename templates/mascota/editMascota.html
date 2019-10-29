@@ -1,0 +1,194 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+<title>Agregar Mascotas</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="single-post row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Mascota en adopción</h4>
+                <p class="card-category">Complete todos los datos por favor</p>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'mascota:update' id_mascota=mascotas_data.id_mascota %}" method="POST">
+                    {%  csrf_token %}
+                    <h4 class="card-title">Características principales</h4>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Ci propietario</label>
+                                <input name="cip" type="text" class="form-control" value="{{mascotas_data.ci_pro}}">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Nombre de la mascota</label>
+                                <input name="nombre" type="text" class="form-control" value="{{mascotas_data.nombre}}">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Edad</label>
+                                <input class="form-control" type="number" name="edad" min="0" max="10" value="{{mascotas_data.edad}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Elija la raza</label>
+                                <select class="form-control"  name="raza">
+                                    <option value="Pitbull">Pitbull</option>
+                                    <option value="Salchicha">Salchicha</option>
+                                    <option value="Labrador">Labrador</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Descripción</label>
+                                <textarea name="descripcion" type="text" class="form-control">{{mascotas_data.descripcion}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="card-title">Descripción física</h4>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Elija el tamaño</label>
+                                <select class="form-control"  name="tamanio">
+                                    <option value="Grande">Grande</option>
+                                    <option value="Mediano">Mediano</option>
+                                    <option value="Pequeño">Pequeño</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Elija el Género</label>
+                                <select class="form-control"  name="sexo">
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Enfermedades crónicas</label>
+                                <select class="form-control"  name="enfermedad">
+                                    <option value="Si">Si</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Tratamientos</label>
+                                <select class="form-control"  name="tratamiento">
+                                    <option value="Si">Si</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Alergias</label>
+                                <select class="form-control"  name="alergia">
+                                    <option value="Si">Si</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Vacunas</label>
+                                <select class="form-control"  name="vacuna">
+                                    <option value="Si">Si</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="card-title">Comportamiento  % </h4>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Cariñoso</label>
+                                <input class="form-control" type="number" name="carinioso" min="0" max="100" value="{{mascotas_data.carinioso}}">
+                            </div>
+                        </div>
+                         <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Juguetón</label>
+                                <input class="form-control" type="number" name="jugueton" min="0" max="100" value="{{mascotas_data.jugueton}}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Tranquilo</label>
+                                <input class="form-control" type="number" name="tranquilo" min="0" max="100" value="{{mascotas_data.tranquilo}}">
+                            </div>
+                        </div>
+                         <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Educado</label>
+                                <input class="form-control" type="number" name="educado" min="0" max="100" value="{{mascotas_data.educado}}">
+                            </div>
+                        </div>
+                    </div>
+                     <h4 class="card-title">Sociable con</h4>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Adultos</label>
+                                <select class="form-control"  name="adulto">
+                                    <option value="Si">Si</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Niños</label>
+                                <select class="form-control"  name="ninio">
+                                    <option value="Si">Si</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Otros animales</label>
+                                <select class="form-control"  name="otro">
+                                    <option value="Si">Si</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Mi historia</label>
+                                <div class="form-group">
+                                    <label class="bmd-label-floating"> Escribe un fragmento de la historia de tu mascota, esto ayudará a que empatizar con ella.</label>
+                                    <textarea name="historia" class="form-control" rows="5">{{mascotas_data.mihistoria}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">Editar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

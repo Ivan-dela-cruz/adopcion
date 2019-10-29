@@ -1,0 +1,125 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+<title>Mi Mascotas</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="single-post row">
+
+    <div class="col-lg-3  col-md-3">
+        <ul class="popular-post-list">
+            <h5>Comportamiento</h5>
+            <li>Jugueton %{{ mascotas.jugueton }}
+                <div class="skill" data-width="{{ mascotas.jugueton }}"></div>
+            </li>
+            <li>Educado %{{ mascotas.educado }}
+                <div class="skill" data-width="{{ mascotas.educado }}"></div>
+            </li>
+            <li>Tranquilo %{{ mascotas.tranquilo }}
+                <div class="skill" data-width="{{ mascotas.tranquilo }}"></div>
+            </li>
+            <li>Cariñoso %{{ mascotas.carinioso }}
+                <div class="skill" data-width="{{ mascotas.carinioso }}"></div>
+            </li>
+            <h5>Sociable con</h5>
+            <li><p><strong class="fa fa-blind fa-2x"></strong> Adultos : {{ mascotas.adultos }}</p></li>
+            <li><p><strong class="fa fa-child fa-2x"></strong> Niños : {{ mascotas.ninios }}</p></li>
+            <li><p><strong class="fa fa-paw fa-2x"></strong> Otros animales : {{ mascotas.otros }}</p></li>
+            <h5>Salud</h5>
+            <li><p>Vacunas : <strong>{{ mascotas.vacuna }}</strong></p></li>
+            <li><p>Alergias : <strong>{{ mascotas.alergia }}</strong></p></li>
+            <li><p>Enfermedades <strong>{{ mascotas.enfermeda }}</strong></p></li>
+            <li><p>Tratamiento : <strong>{{ mascotas.tratamiento }}</strong></p></li>
+            <a href="{% url 'mascota:adoptar' id_mascota=mascotas.id_mascota %}" class="btn btn-primary">Adoptar</a>
+
+        </ul>
+        <a href="{% url 'mascota:adoptar' id_mascota=mascotas.id_mascota %}" class="btn btn-primary">Agregar historia</a>
+    </div>
+    <div class="col-lg-9 col-md-9">
+        <div class="feature-img">
+            <img class="img-fluid" src="{{ mascotas.foto.url }}" alt="">
+        </div>
+        <a class="posts-title" href="blog-single.html">
+            <h3>{{ mascotas.nombre }}</h3></a>
+        <p class="excert">
+            {{ mascotas.descripcion }}
+        </p>
+        <div class="meta-details">
+            <h5>Características</h5>
+            <ul class="tags">
+                <li><p>Sexo
+                    {% if mascotas.sexo == 'Masculino'%}
+                    <strong class="fa fa-mars fa-2x" style="color:blue;"></strong>
+                    <strong class="fa fa-venus fa-2x"></strong>
+                    {%else%}
+                    <strong class="fa fa-mars fa-2x"></strong>
+                    <strong class="fa fa-venus fa-2x" style="color:blue;"></strong>
+                    {%endif%}
+                </p>
+                </li>
+                <li><p>Tamaño
+                    {% if mascotas.tamanio == 'Grande' %}
+                    <strong class="fa fa-github"></strong>
+                    <strong class="fa fa-github fa-2x"></strong>
+                    <strong class="fa fa-github fa-3x" style="color:blue;"></strong>
+                    {%endif%}
+                    {% if mascotas.tamanio == 'Mediano' %}
+                    <strong class="fa fa-github"></strong>
+                    <strong class="fa fa-github fa-2x" style="color:blue;"></strong>
+                    <strong class="fa fa-github fa-3x"></strong>
+                    {%endif%}
+                    {% if mascotas.tamanio == 'Pequeño' %}
+                    <strong class="fa fa-github" style="color:blue;"></strong>
+                    <strong class="fa fa-github fa-2x"></strong>
+                    <strong class="fa fa-github fa-3x"></strong>
+                    {%endif%}
+                </p>
+                </li>
+                <li>
+                    <p>| Raza :
+                        <strobg>{{ mascotas.raza }}</strobg>
+                        |
+                    </p>
+                </li>
+                <li><p>| años : <strong>{{ mascotas.edad }}</strong> |</p></li>
+            </ul>
+        </div>
+        <div>
+            <h5>Mi historia</h5>
+            <p class="excert">{{ mascotas.mihistoria }}</p>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="col-lg-8 posts-list">
+    {% for historia in historia_data %}
+    <div class="single-post row">
+        <div class="col-lg-3  col-md-3 meta-details">
+            <div class="user-details row">
+                <p class="user-name col-lg-12 col-md-12 col-6"><a href="#">{{ historia.like }} Lecturas</a> <span
+                        class="lnr lnr-user"></span></p>
+                <p class="date col-lg-12 col-md-12 col-6"><a href="#">{{ historia.fecha }}</a> <span
+                        class="lnr lnr-calendar-full"></span></p>
+                <p class="view col-lg-12 col-md-12 col-6"><a href="#">{{ historia.like }} Me gusta</a> <span
+                        class="lnr lnr-eye"></span></p>
+
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9 ">
+            <div class="feature-img">
+                <img class="img-fluid" src="{{ historia.imagen.url }}" alt="">
+            </div>
+            <a class="posts-title" href="blog-single.html"><h3>{{ historia.titulo }}</h3>
+            </a>
+            <p class="excert">
+                {{ historia.historias }}
+            </p>
+            <a href="{% url 'historia:likee' id_historia=historia.id_historia %}" class="primary-btn">Me gusta</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
