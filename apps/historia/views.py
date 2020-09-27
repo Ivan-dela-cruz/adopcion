@@ -3,6 +3,7 @@ from .models import Historia
 from apps.mascota.models import Mascota
 from apps.solicitud.models import Solicitud
 from  django.contrib.auth.models import User
+from django.core.files.storage import FileSystemStorage
 
 def index(request):
 
@@ -49,6 +50,10 @@ def crearHist(request):
         fecha = request.POST['fecha']
         historias = request.POST['historias']
         like = 0
+        myfile = request.FILES['imagen']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
 
 
         historia = Historia(
@@ -57,7 +62,8 @@ def crearHist(request):
             historias = historias,
             fecha = fecha,
             like = like,
-            titulo = titulo
+            titulo = titulo,
+            imagen = uploaded_file_url
 
         )
         historia.save()

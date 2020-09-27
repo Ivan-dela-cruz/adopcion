@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import  HttpResponse
 from .models import Mascota
 from apps.solicitud.models import Solicitud
+from django.core.files.storage import FileSystemStorage
 
 
 def adoptadoss(request):
@@ -26,6 +27,11 @@ def add(request):
 
 def create(request):
     print(request.POST)
+
+    myfile = request.FILES['foto']
+    fs = FileSystemStorage()
+    filename = fs.save(myfile.name, myfile)
+    uploaded_file_url = fs.url(filename)
     #datos principales
     ci_pro = request.POST['cip']
     nombre = request.POST['nombre']
@@ -80,7 +86,8 @@ def create(request):
         tranquilo = tranquilo,
         educado = educado,
         mihistoria = mihistoria,
-        estado = estado
+        estado = estado,
+        foto = uploaded_file_url
     )
     mascota.save()
     return redirect('mascota:add')
@@ -102,6 +109,11 @@ def edit(request, id_mascota):
 
 def update(request, id_mascota):
     mascota = Mascota.objects.get(pk=id_mascota)
+
+    myfile = request.FILES['foto']
+    fs = FileSystemStorage()
+    filename = fs.save(myfile.name, myfile)
+    uploaded_file_url = fs.url(filename)
 
      #datos principales
     mascota.ci_pro = request.POST['cip']
@@ -133,6 +145,7 @@ def update(request, id_mascota):
 
     #hitoria
     mascota.mihistoria = request.POST['historia']
+    mascota.foto = uploaded_file_url
 
     mascota.save()
     return redirect('mascota:index')
